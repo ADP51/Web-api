@@ -1,8 +1,8 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-// var connection = require("./models/dbconnection");
 var app = express();
 
+//assigning all my filepaths to my routes
 var storeRoutes = require("./routes/stores");
 var productsRoutes = require("./routes/products");
 var orderRoutes = require("./routes/orders");
@@ -16,6 +16,7 @@ app.get("/", function(req, res){
     res.send("Hello"); 
 });
 
+//use all the routes
 app.use("/stores", storeRoutes);
 app.use("/stores", productsRoutes);
 app.use("/stores", orderRoutes);

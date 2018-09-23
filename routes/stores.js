@@ -19,10 +19,10 @@ router.get("/", function(req, res){
 //take all info in req.body and add into the db by passing it to my db.query
 router.post("/", function(req,res){
     var store = {name: req.body.name};
-    console.log(store);
+    console.log(req.body.name);
     connection.query("INSERT INTO stores SET ?", store, function(error, results){
          console.log(error);
-         res.redirect("/");
+         res.json("results");
     });
 });
 
@@ -54,7 +54,7 @@ router.delete("/", function(req, res){
     console.log(req.body.id);
     connection.query("DELETE FROM stores WHERE id = ?", req.body.id, function(error, results){
         if(error) throw error;
-        res.end(JSON.stringify(results));
+        res.send("Store Deleted");
     }); 
 });
 

@@ -20,14 +20,13 @@ router.get("/:storeId/products", function(req, res){
 router.post("/:storeId/products", function(req,res){
     //store all the values for the new product in a var "q"
     var q = {   name: req.body.name,
-                description: req.body.description,
+                description: req.body.desc,
                 price: req.body.price,
                 store_id: req.params.storeId
-    }
+    };
     //pass the var q into a SQL query to our database to create a new entry into our db
     connection.query('INSERT INTO products SET ?', q, function(error, results){
         if(error) throw error;
-        res.json(results);
         res.redirect("/stores/:storeId/products")
     });
 });
@@ -43,17 +42,9 @@ router.get("/:storeId/products/:prodId", function(req,res){
 
 //update route
 router.put("/:storeId/products/:prodId", function(req,res){
-    //store all incoming data in a var 
-    var body = {    name: req.body.name,
-                    description: req.body.description,
-                    price: req.body.price,
-                    id: req.params.prodId
-    }
-    //query the db using the incoming data to update in the db using the the id of the product to indentify
     connection.query("UPDATE products SET name = ?, description = ?, price = ? WHERE id = ?", [req.body.name, req.body.description, req.body.price, req.params.prodId], function(error, results){
         if(error) throw error;
         console.log("Product updated");
-        res.json(results);
         res.redirect("/:storeId/products");
     }); 
 });

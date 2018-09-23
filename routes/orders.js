@@ -17,16 +17,13 @@ router.get("/:storeId/orders", function(req, res){
 
 //create route
 router.post("/:storeId/orders", function(req,res){
-    //store all the values for the new order in a var "q"
     var q = {
         total_price: req.body.total_price,
         store_id: req.params.storeId
     }
-    //pass the var q into a SQL query to our database to create a new entry into our db
     connection.query('INSERT INTO orders SET ?', q, function(error, results){
         if(error) throw error;
-        res.json(results);
-        res.redirect("/stores/:storeId/orders");
+        res.redirect("/stores/:storeId/orders")
     });
 });
 
@@ -41,11 +38,9 @@ router.get("/:storeId/orders/:orderId", function(req,res){
 
 //update route
 router.put("/:storeId/orders/:orderId", function(req,res){
-    //update at the id passed by params
     connection.query("UPDATE orders SET total_price = ?, store_id = ? WHERE id = ?", [req.body.total_price, req.body.store_id, req.params.orderId], function(error, results){
         if(error) throw error;
         console.log("Order updated");
-        res.json(results);
         res.redirect("/:storeId/orders");
     }); 
 });

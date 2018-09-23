@@ -17,16 +17,15 @@ router.get("/:storeId/orders/:orderId/lineitems", function(req, res){
 
 //create route
 router.post("/:storeId/orders/:orderId/lineitems", function(req,res){
-    //store all incoming info in a var then passing it as an arg to my db query to create a new lineitem
     var q = {
         quantity: req.body.quantity,
         linetotal: req.body.linetotal,
-        product_id: req.body.product_id,
-        order_id: req.params.orderId
+        order_id: req.params.orderId,
+        product_id: req.body.product_id
+        
     }
     connection.query('INSERT INTO lineitems SET ?', q, function(error, results){
         if(error) throw error;
-        res.json(results);
         res.redirect("/stores/:storeId/orders/:orderId/lineitems");
     });
 });
@@ -43,10 +42,12 @@ router.get("/:storeId/orders/:orderId/lineitems/:lineId", function(req,res){
 //update route
 router.put("/:storeId/orders/:orderId/lineitems/:lineId", function(req,res){
     //take the incoming info in body and use it to update my db at the req.params.lineId
-    connection.query("UPDATE lineitems SET quantity = ?, linetotal = ?, product_id =? WHERE id = ?", [req.body.quantity, req.body.linetotal, req.body.product_id, req.params.lineId], function(error, results){
-        if(error) throw error;
-        console.log("Order updated");
-        res.redirect("/:storeId/orders/lineitems/:lineId");
+    connection.query("UPDATE lineitems SET quantity = ?, linetotal = ?, order_id= ?, product_id =? WHERE id = ?", 
+        [req.body.quantity, req.body.linetotal, req.body.order_id, req.body.product_id, req.params.lineId], 
+        function(error, results){
+            if(error) throw error;
+            console.log("Order updated");
+            res.redirect("/:storeId/orders/lineitems/:lineId");
     }); 
 });
 

@@ -1,0 +1,327 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Store API",
+		"_postman_id": "b793d161-1d72-6fb9-c4c1-4a4061b05c04",
+		"description": "This is a small API for a database to set hook in multiple stores. It is built using Node.js on Express and MySQL for the database. It follows the RESTful pattern of:\n/stores => see all stores\n/stores/:storeId => see a specific store\n\n/stores/:storeId/products => see all products\n/stores/:storeId/products/:productId => see a specific product\n\n/stores/:storeId/orders => see all orders\n/stores/:storeId/orders/:orderId => see a specific order\n\n/stores/:storeId/orders/:orderId/lineitems => see all lineitems for this order\n\n/stores/:storeId/orders/:orderId/lineitems/:id => see a specific lineitem \n\nIt supports full crud using post, put and delete.\n\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/stores",
+			"description": "Stores routes",
+			"item": [
+				{
+					"name": "Get All Stores",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Get all stores"
+					},
+					"response": []
+				},
+				{
+					"name": "See a store",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/11",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "See a specific store "
+					},
+					"response": []
+				},
+				{
+					"name": "Create new Store",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"name\" : \"New Store\"\n}"
+						},
+						"description": "Adds new store:\npass new store a name and it generates an ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Edit a store",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/9",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Edit Store\"\n}"
+						},
+						"description": "Change the name of a store."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Store",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/12",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": "Delete the store at a specific id"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": ".../products",
+			"description": "All routes for products",
+			"item": [
+				{
+					"name": "Get all Products for a store",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/5/products",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "See all Products"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a product by ID",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/5/products/1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "See a specific product"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a product",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/5/products/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"A new Product\",\n\t\"desc\": \"Description for a new product\",\n\t\"price\": 9.99,\n\t\"storeId\": \"1\"\n}"
+						},
+						"description": "The create route accepts all arguments in the body and creates a new product and assigns a new id to it."
+					},
+					"response": []
+				},
+				{
+					"name": "Edit a  Product",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/5/products/8",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"A new Product- Edit\",\n\t\"description\": \"Description for a new product-edit\",\n\t\"price\": 10.99,\n\t\"storeId\": \"5\"\n}"
+						},
+						"description": "Edit the information of a single product"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Product",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/5/products/11",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": "Delete a product by the store id and product id."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": ".../orders",
+			"description": "All the order routes\n",
+			"item": [
+				{
+					"name": "Get all the Orders for this Store",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/5/orders/",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Get all orders for this store"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a single Order from this Store",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/5/orders/1",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Get a specific Order"
+					},
+					"response": []
+				},
+				{
+					"name": "Create an Order",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/1/orders/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"total_price\": 1200\n}"
+						},
+						"description": "Take the store id in the route and create a new order for that store. "
+					},
+					"response": []
+				},
+				{
+					"name": "Edit an Order from this store",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/5/orders/16",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"total_price\": 340.56,\n\t\"store_id\": 5\n}"
+						},
+						"description": "Using put this route needs to be passed the order_total and the storeId from the body."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete this order",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/5/orders/15",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": "Delete the order taking the storeId and orderId from the route params to locate it in the DB."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": ".../lineitems",
+			"description": ".../stores/:storeId/orders/:orderId => lineitems for an order can be found by using the above route.",
+			"item": [
+				{
+					"name": "Get all lineitems for this Order",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/5/orders/1/lineitems",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Returns all the lineitems for the orderId given"
+					},
+					"response": []
+				},
+				{
+					"name": "Get a single Lineitem ",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/5/orders/1/lineitems/6",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": "Get a specific lineitem by adding the id to the end of the route."
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Lineitem",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/5/orders/1/lineitems",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"quantity\": 2,\n\t\"linetotal\": 34.54,\n\t\"order_id\": 1,\n\t\"product_id\": 2\n}"
+						},
+						"description": "Add a new Lineitem for the order given the orderId from the route parameters. "
+					},
+					"response": []
+				},
+				{
+					"name": "Edit a Lineitem",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/5/orders/1/lineitems/6",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"quantity\": 3,\n    \"linetotal\": 22.54,\n    \"order_id\": 1,\n    \"product_id\": 2\n}"
+						},
+						"description": "Enter in all the info needed and it will update the Lineitem that is defined by the lineId in the route."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Lineitem",
+					"request": {
+						"url": "https://shopifywebapi-ap51.c9users.io/stores/5/orders/1/lineitems/7",
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"description": "Delete a Lineitem where the id matches the lineId in the route parameters."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
